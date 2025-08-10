@@ -81,6 +81,8 @@ export const useDB = createSingletonPromise(async () => {
   return db
 })
 
+export const useDatabase = useDB;
+
 type DB = Awaited<ReturnType<typeof useDB>>
 
 /**
