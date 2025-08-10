@@ -63,6 +63,10 @@ export const ENV = {
   DB_DRIVER: parsedEnv.data.DAR_ACT_DB_TYPE || parsedEnv.data.DB_DRIVER,
   // Use DAR_ACT_PORT if set, otherwise fall back to NITRO_PORT
   PORT: parsedEnv.data.DAR_ACT_PORT || parsedEnv.data.NITRO_PORT,
+  // Cleanup cron schedules
+  CACHE_CLEANUP_CRON: parsedEnv.data.DAR_ACT_CACHE_CLEANUP_CRON,
+  UPLOAD_CLEANUP_CRON: parsedEnv.data.DAR_ACT_UPLOAD_CLEANUP_CRON,
+  CACHE_CLEANUP_OLDER_THAN_DAYS: parsedEnv.data.DAR_ACT_CACHE_CLEANUP_OLDER_THAN_DAYS,
 }
 
 export function formatZodError(error: z.ZodError<any>) {
