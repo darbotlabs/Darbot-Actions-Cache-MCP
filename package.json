@@ -1,17 +1,17 @@
 {
-  "name": "@darbot/dar-act-cache",
+  "name": "@darbot/dac",
   "type": "module",
   "version": "1.0.0",
-  "description": "DAR-ACT-Cache - Darbot Action Runner Cache Server",
+  "description": "Darbot Actions Cache - High-performance self-hosted cache server for GitHub Actions",
   "author": "Darbot Team",
   "license": "MIT",
-  "homepage": "https://github.com/darbot/dar-act-cache",
+  "homepage": "https://github.com/darbotlabs/Darbot-Actions-Cache-MCP",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/darbot/dar-act-cache.git"
+    "url": "git+https://github.com/darbotlabs/Darbot-Actions-Cache-MCP.git"
   },
   "bugs": {
-    "url": "https://github.com/darbot/dar-act-cache/issues"
+    "url": "https://github.com/darbotlabs/Darbot-Actions-Cache-MCP/issues"
   },
   "bin": {
     "darbot-dac": "./dist/cli/index.js",
@@ -20,10 +20,13 @@
   },
   "keywords": [
     "darbot",
-    "dar-act-cache",
+    "dac",
+    "actions-cache",
     "github-actions",
     "cache",
-    "ci-cd"
+    "ci-cd",
+    "mcp",
+    "model-context-protocol"
   ],
   "private": true,
   "engines": {

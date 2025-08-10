@@ -26,21 +26,21 @@ services:
       MINIO_ROOT_USER: access_key
       MINIO_ROOT_PASSWORD: secret_key
 
-  dar-act-cache:
+  darbot-dac:
     build:
       dockerfile: Dockerfile
       context: .
-    container_name: dar-act-cache
+    container_name: darbot-dac
     ports:
       - '3000:3000'
     depends_on:
       - minio
 
     environment:
-      DAR_ACT_BASE_URL: http://localhost:3000
+      DAC_BASE_URL: http://localhost:3000
 
-      DAR_ACT_STORAGE_BACKEND: s3
-      DAR_ACT_STORAGE_S3_BUCKET: test
+      DAC_STORAGE_BACKEND: s3
+      STORAGE_S3_BUCKET: test
 
       AWS_ACCESS_KEY_ID: access_key
       AWS_SECRET_ACCESS_KEY: secret_key
