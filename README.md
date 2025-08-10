@@ -1,4 +1,4 @@
-# 🚀 DAR-ACT-Cache (Darbot Action Runner Cache Server)
+# 🚀 Darbot Action Runner Cache Server
 
 A high-performance, self-hosted cache server for GitHub Actions runners. DAR-ACT-Cache is a drop-in replacement for the official GitHub hosted cache server, fully compatible with the official `actions/cache` action.
 
