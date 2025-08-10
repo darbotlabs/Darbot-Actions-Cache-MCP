@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:15
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
+  mysql:
+    image: mysql:8
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mysql
+
+  minio:
+    image: quay.io/minio/minio:latest
+    entrypoint: sh
+    command: -c 'mkdir -p /data/test && /usr/bin/minio server /data'
+    ports:
+      - 9000:9000
+    environment:
+      MINIO_ROOT_USER: access_key
+      MINIO_ROOT_PASSWORD: secret_key
+
+  dar-act-cache:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: dar-act-cache
+    ports:
+      - '3000:3000'
+    depends_on:
+      - minio
+
+    environment:
+      DAR_ACT_BASE_URL: http://localhost:3000
+
+      DAR_ACT_STORAGE_BACKEND: s3
+      DAR_ACT_STORAGE_S3_BUCKET: test
+
+      AWS_ACCESS_KEY_ID: access_key
+      AWS_SECRET_ACCESS_KEY: secret_key
+      AWS_ENDPOINT_URL: http://minio:9000

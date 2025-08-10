@@ -1,0 +1,14 @@
+node_modules
+*.log*
+.nitro
+.cache
+.output
+.env.local
+dist
+data/
+.eslintcache
+.data
+.idea
+.DS_Store
+tests/temp/
+actions-runner/

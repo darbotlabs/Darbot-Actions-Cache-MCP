@@ -1,0 +1,9 @@
+dist/
+.nuxt/
+.output/
+.temp/
+
+pnpm-lock.yaml
+data/
+docs/content/**/*.md
+install/
