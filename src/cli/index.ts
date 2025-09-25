@@ -7,14 +7,14 @@ import { version } from '../../package.json';
 const program = new Command();
 
 program
-  .name('darbot-act')
-  .description(chalk.cyan('DAR-ACT-Cache CLI - Darbot Action Runner Cache Management'))
+  .name('darbot-dac')
+  .description(chalk.cyan('Darbot Actions Cache CLI - DAC Management Tools'))
   .version(version, '-v, --version', 'Display version information');
 
 // Main cache command
 program
   .command('cache')
-  .description('Manage DAR-ACT-Cache server')
+  .description('Manage DAC server and cache operations')
   .option('-s, --start', 'Start the cache server')
   .option('-t, --stop', 'Stop the cache server')
   .option('-r, --restart', 'Restart the cache server')
@@ -24,7 +24,7 @@ program
   .option('-c, --config <path>', 'Path to configuration file')
   .option('-d, --daemon', 'Run as daemon')
   .action(async (options) => {
-    console.log(chalk.blue('🚀 DAR-ACT-Cache Management'));
+    console.log(chalk.blue('🚀 Darbot Actions Cache Management'));
     console.log('Options:', options);
     // Implementation would go here
   });
@@ -32,7 +32,7 @@ program
 // Stats command
 program
   .command('stats')
-  .description('Display cache statistics')
+  .description('Display cache statistics and metrics')
   .option('-f, --format <type>', 'Output format (json, table)', 'table')
   .option('--live', 'Live monitoring mode')
   .action(async (options) => {
@@ -44,7 +44,7 @@ program
 // Config command
 program
   .command('config')
-  .description('Manage DAR-ACT-Cache configuration')
+  .description('Manage DAC configuration')
   .option('--init', 'Initialize configuration')
   .option('--validate', 'Validate current configuration')
   .option('--show', 'Display current configuration')
@@ -77,6 +77,25 @@ program
     console.log(chalk.cyan('🏥 Health Check'));
     console.log('Options:', options);
     // Implementation would go here
+  });
+
+// MCP command
+program
+  .command('mcp')
+  .description('Start MCP server for external integrations')
+  .option('--stdio', 'Use stdio transport (default)', true)
+  .option('--port <port>', 'Use HTTP transport on specified port')
+  .action(async (options) => {
+    console.log(chalk.magenta('🔗 Starting Darbot-DAC-MCP Server'));
+    
+    try {
+      const { DarbotDACMCPServer } = await import('../mcp/server.js');
+      const server = new DarbotDACMCPServer();
+      await server.run();
+    } catch (error) {
+      console.error(chalk.red('Failed to start MCP server:'), error);
+      process.exit(1);
+    }
   });
 
 program.parse();

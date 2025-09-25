@@ -8,7 +8,7 @@ import { useStorageAdapter } from '~/lib/storage'
 
 export default defineNitroPlugin(async (nitro) => {
   const version = useRuntimeConfig().version
-  if (cluster.isPrimary) logger.info(`🚀 Starting DAR-ACT-Cache Server (${version})`)
+  if (cluster.isPrimary) logger.info(`🚀 Starting Darbot Actions Cache Server (${version})`)
 
   await useDB()
   await useStorageAdapter()

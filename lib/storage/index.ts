@@ -184,15 +184,16 @@ export const useStorageAdapter = createSingletonPromise(async () => {
         logger.debug('Download:', objectName)
         return driver.createReadStream(objectName)
       },
-      async pruneCaches(olderThanDays?: number) {
+      async pruneCaches(olderThanDays?: number, scope?: string) {
         logger.debug('Prune:', {
           olderThanDays,
+          scope,
         })
 
         const keys = await findStaleKeys(db, { olderThanDays })
         if (keys.length === 0) {
           logger.debug('Prune: No caches to prune')
-          return
+          return []
         }
 
         await driver.delete(keys.map((key) => getObjectNameFromKey(key.key, key.version)))
@@ -200,7 +201,38 @@ export const useStorageAdapter = createSingletonPromise(async () => {
 
         logger.debug('Prune: Caches pruned', {
           olderThanDays,
+          count: keys.length,
         })
+
+        return keys.map(key => ({
+          id: key.id,
+          key: key.key,
+          version: key.version,
+          size: 0, // Size not available in current schema
+        }))
+      },
+      async deleteCache(cacheId: string) {
+        logger.debug('Delete cache:', { cacheId })
+
+        const cacheKey = await db
+          .selectFrom('cache_keys')
+          .selectAll()
+          .where('id', '=', cacheId)
+          .executeTakeFirst()
+
+        if (!cacheKey) {
+          throw new Error(`Cache with ID ${cacheId} not found`)
+        }
+
+        const objectName = getObjectNameFromKey(cacheKey.key, cacheKey.version)
+        await driver.delete([objectName])
+        
+        await db
+          .deleteFrom('cache_keys')
+          .where('id', '=', cacheId)
+          .execute()
+
+        logger.debug('Delete cache: completed', { cacheId, key: cacheKey.key })
       },
       async pruneUploads(olderThanDate: Date) {
         logger.debug('Prune uploads')

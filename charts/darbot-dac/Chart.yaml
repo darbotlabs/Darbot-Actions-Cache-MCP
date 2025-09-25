@@ -1,0 +1,21 @@
+apiVersion: v2
+name: darbot-dac
+description: Darbot Actions Cache (DAC) - High-performance self-hosted GitHub Actions cache server with MCP support
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - darbot
+  - dac
+  - actions-cache
+  - github-actions
+  - ci-cd
+  - mcp
+  - model-context-protocol
+home: https://github.com/darbotlabs/Darbot-Actions-Cache-MCP
+sources:
+  - https://github.com/darbotlabs/Darbot-Actions-Cache-MCP
+maintainers:
+  - name: Darbot Team
+    email: support@darbotlabs.com
+icon: https://raw.githubusercontent.com/darbotlabs/Darbot-Actions-Cache-MCP/main/assets/logo.png

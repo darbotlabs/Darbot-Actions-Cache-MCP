@@ -5,7 +5,7 @@ import { ENV } from '~/lib/env'
 
 export const logger = createConsola({
   defaults: {
-    tag: cluster.isPrimary ? 'dar-act-cache' : `dar-act-cache-node-${cluster.worker?.id}`,
+    tag: cluster.isPrimary ? 'darbot-dac' : `darbot-dac-node-${cluster.worker?.id}`,
   },
   level: ENV.DEBUG ? LogLevels.debug : LogLevels.info,
 })

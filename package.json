@@ -1,28 +1,32 @@
 {
-  "name": "@darbot/dar-act-cache",
+  "name": "@darbot/dac",
   "type": "module",
   "version": "1.0.0",
-  "description": "DAR-ACT-Cache - Darbot Action Runner Cache Server",
+  "description": "Darbot Actions Cache - High-performance self-hosted cache server for GitHub Actions",
   "author": "Darbot Team",
   "license": "MIT",
-  "homepage": "https://github.com/darbot/dar-act-cache",
+  "homepage": "https://github.com/darbotlabs/Darbot-Actions-Cache-MCP",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/darbot/dar-act-cache.git"
+    "url": "git+https://github.com/darbotlabs/Darbot-Actions-Cache-MCP.git"
   },
   "bugs": {
-    "url": "https://github.com/darbot/dar-act-cache/issues"
+    "url": "https://github.com/darbotlabs/Darbot-Actions-Cache-MCP/issues"
   },
   "bin": {
-    "darbot-act": "./dist/cli/index.js",
+    "darbot-dac": "./dist/cli/index.js",
+    "darbot-dac-mcp": "./dist/mcp/index.js",
     "dar-act-cache": "./dist/cli/index.js"
   },
   "keywords": [
     "darbot",
-    "dar-act-cache",
+    "dac",
+    "actions-cache",
     "github-actions",
     "cache",
-    "ci-cd"
+    "ci-cd",
+    "mcp",
+    "model-context-protocol"
   ],
   "private": true,
   "engines": {
@@ -32,7 +36,8 @@
   "scripts": {
     "prepare": "nitropack prepare && [ -z \"$CI\" ] && husky || echo 'Skipping husky in CI'",
     "dev": "nitropack dev",
-    "build": "nitropack build",
+    "build": "nitropack build && pnpm build:cli",
+    "build:cli": "mkdir -p dist/cli dist/mcp && cp src/cli/index.ts dist/cli/index.js && cp src/mcp/index.ts dist/mcp/index.js",
     "preview": "node .output/server/index.mjs",
     "lint": "eslint --cache . && prettier --check --cache .",
     "lint:ci": "eslint --cache --cache-strategy content . && prettier --check --cache --cache-strategy content .",
@@ -51,6 +56,7 @@
     "@aws-sdk/lib-storage": "^3.846.0",
     "@aws-sdk/s3-request-presigner": "^3.846.0",
     "@google-cloud/storage": "^7.16.0",
+    "@modelcontextprotocol/sdk": "^1.17.2",
     "@types/better-sqlite3": "^7.6.13",
     "@types/pg": "^8.15.4",
     "better-sqlite3": "^12.2.0",
@@ -91,6 +97,7 @@
     "start-server-and-test": "^2.0.12",
     "testcontainers": "^11.2.1",
     "ts-pattern": "^5.7.1",
+    "tsx": "^4.20.3",
     "vitest": "^3.2.4",
     "wait-on": "^8.0.3"
   },
